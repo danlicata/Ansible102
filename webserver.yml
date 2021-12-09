@@ -1,0 +1,21 @@
+---
+- name: Install Apache
+  become: true
+  hosts: web
+  tasks:
+    - name: install
+      yum:
+       name: httpd
+       state: latest
+    - name: copy file
+      copy:
+       content: "Yay Ansible"
+       dest: /var/www/html/index.html
+    - name: enable httpd
+      service: 
+        name: httpd
+        enabled: true
+    - name: start httpd
+      service:
+        name: httpd
+        state: started
